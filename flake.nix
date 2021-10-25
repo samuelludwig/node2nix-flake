@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Generate Nix expressions to build NPM packages";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -15,6 +15,7 @@
           drv = package;
           exePath = "/bin/node2nix";
         };
+        overlay = (final: prev: { inherit node2nix; });
       in {
         packages.node2nix = node2nix;
         defaultPackage = node2nix;
@@ -22,5 +23,6 @@
         defaultApp = app;
         nodeDependencies = nodeDependencies;
         nodeShell = shell;
+        inherit overlay;
       });
 }
