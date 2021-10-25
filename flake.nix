@@ -15,8 +15,8 @@
           drv = package;
           exePath = "/bin/node2nix";
         };
-        overlay = final: prev: {
-          node2nix = package.${prev.system};
+        overlays = final: prev: {
+          node2nix = package;
         };
       in {
         packages.node2nix = node2nix;
@@ -25,6 +25,6 @@
         defaultApp = app;
         nodeDependencies = nodeDependencies;
         nodeShell = shell;
-        inherit overlay;
+        inherit overlays;
       });
 }
